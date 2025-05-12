@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+    <div class="form-structor">
+        <div class="signup slide-up">
+            <h2 class="form-title" id="signup"><span>or</span>Sign up</h2>
+            <form id="signup-form" method="POST">
+                <div class="form-holder">
+                    <input type="text" class="input no-space" placeholder="Name" name="DisplayName" required />
+                    <input type="email" class="input no-space" placeholder="Email" name="Email" required />
+                    <input type="password" class="input no-space" placeholder="Password" name="Password" required />
+                </div>
+                <button type="submit" class="submit-btn">Sign up</button>
+            </form>
+        </div>
+
+        <div class="login">
+            <div class="center">
+                <h2 class="form-title" id="login"><span>or</span>Log in</h2>
+                <form id="login-form" method="POST">
+                    <div class="form-holder">
+                        <input type="email" class="input no-space" placeholder="Email" name="login-email"
+                            value="e01@gmail.com" required />
+                        <input type="password" class="input no-space" placeholder="Password" name="login-password"
+                            value="abc123" required />
+                    </div>
+                    <button type="submit" class="submit-btn">Log in</button>
+                </form>
+                <div class="forgot-pass">
+                    <span id="forgot-password" data-toggle="modal" data-target="#forgotModal">忘記密碼</span>
+                </div>
+                <div class="social-login">
+                    <img class="google-icon" src="https://developers.google.com/identity/images/g-logo.png"
+                        alt="Google Logo" />
+                    <p class="google-login">使用 Google 登入</p>                    
+                </div>
+
+                <div id="error-message" style="color: red; display: none; text-align: center">帳號密碼錯誤，請重新輸入</div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="forgotModal" tabindex="-1" role="dialog" aria-labelledby="forgotModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">重設密碼</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="關閉">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="forgot-password-form">
+                    <div class="modal-body">
+                        <p>請輸入您的 Email：</p>
+                        <input type="email" id="forgot-email" class="form-control no-space" required />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-primary" id="forgot-password-btn">送出</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+
+</body>
+
+</html>

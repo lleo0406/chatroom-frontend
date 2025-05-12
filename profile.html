@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/profile.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <nav class="menu">
+                <ul class="items">
+                    <li class="item item-active">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                    </li>
+                    <li class="item friends">
+                        <div style="position: relative;">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <span class="badge badge-danger notification-count"></span>
+                        </div>
+                    </li>
+                    <li class="item chatroom">
+                        <i class="fa fa-commenting" aria-hidden="true"></i>
+                    </li>
+                    <li class="item signout">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    </li>
+                </ul>
+            </nav>
+
+            <section class="chat">
+                <div class="header-chat">
+                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                    <p class="name">個人資料</p>
+                </div>
+
+                <div class="user-profile">
+                    <div class="avatar-wrapper">
+                        <img src="./image/user-default.webp" alt="User Avatar" class="avatar" id="userAvatar">
+                        <input type="file" id="avatarInput" style="display: none;" accept="image/*">
+                        <p class="change-photo-text">點擊更換照片</p>
+                    </div>
+
+                    <div class="user-info">
+                        <div class="PersonalData">
+                            <p><strong>暱稱：</strong><span id="userName"></span></p>
+                            <button class="btn btn-primary" data-toggle="modal"
+                                data-target="#edit-name-modal">編輯</button>
+                        </div>
+                        <div class="PersonalData">
+                            <p><strong>Email：</strong><span id="userEmail"></span></p>
+                            <button class="btn btn-primary" data-toggle="modal"
+                                data-target="#edit-email-modal">編輯</button>
+
+                        </div>
+                        <div class="PersonalData">
+                            <p><strong>ID：</strong><span id="userDisplayId"></span></p>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#edit-id-modal">編輯</button>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#edit-password-modal">更改密碼</button>
+                </div>
+
+            </section>
+
+
+            <!-- 修改暱稱 NameModal -->
+            <div class="modal fade" id="edit-name-modal" tabindex="-1" role="dialog"
+                aria-labelledby="editNameModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editNameModalLabel">修改暱稱</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="關閉">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="edit-name-form">
+                                <div class="form-group">
+                                    <label for="newUserName">新的暱稱</label>
+                                    <input type="text" class="form-control no-space" id="newUserName" required>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary" form="edit-name-form">儲存變更</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 修改ID IdModal -->
+            <div class="modal fade" id="edit-id-modal" tabindex="-1" role="dialog" aria-labelledby="editIdModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editIdModalLabel">修改ID</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="關閉">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="edit-id-form">
+                                <div class="form-group">
+                                    <label for="newId">新的ID</label>
+                                    <input type="text" class="form-control no-space" id="newDisplayId" required>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary" form="edit-id-form">儲存變更</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 修改Email EmailModal -->
+            <div class="modal fade" id="edit-email-modal" tabindex="-1" role="dialog"
+                aria-labelledby="editEmailModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editEmailModalLabel">修改Email</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="關閉">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="edit-email-form">
+                                <div class="form-group">
+                                    <label for="newId">新的Email</label>
+                                    <input type="text" class="form-control no-space" id="newEmail" name="Email"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">密碼</label>
+                                    <input type="password" class="form-control no-space" id="password" name="password"
+                                        required>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary" form="edit-email-form">儲存變更</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 更改密碼 -->
+            <div class="modal fade" id="edit-password-modal" tabindex="-1" role="dialog"
+                aria-labelledby="editPasswordModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editPasswordModalLabel">更新密碼</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="關閉">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="edit-password-form">
+                                <div class="form-group">
+                                    <label for="OriginalPassword">原本密碼</label>
+                                    <input type="password" class="form-control no-space" id="OriginalPassword"
+                                        name="Password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPassword">新密碼</label>
+                                    <input type="password" class="form-control no-space" id="newPassword"
+                                        name="NewPassword" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ConfirmNewPassword">確認新密碼</label>
+                                    <input type="password" class="form-control no-space" id="ConfirmNewPassword"
+                                        name="confirmNewPassword" required>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary" form="edit-password-form">儲存變更</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/profile.js"></script>
+
+
+</body>
+
+</html>

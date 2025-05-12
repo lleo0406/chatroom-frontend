@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/friends.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <nav class="menu">
+                <ul class="items">
+                    <li class="item profile ">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                    </li>
+                    <li class="item item-active">
+                        <div style="position: relative;">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <span class="badge badge-danger notification-count"></span>
+                        </div>
+                    </li>
+                    <li class="item chatroom">
+                        <i class="fa fa-commenting" aria-hidden="true"></i>
+                    </li>
+                    <li class="item signout">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    </li>
+                </ul>
+            </nav>
+
+            <section class="friends-section">
+                <div class="header">
+                    <div class="center-content">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <p class="name">好友名單</p>
+                    </div>
+                    <div class="icon-container">
+                        <div class="menu-toggle-container" style="position: relative;">
+                            <i class="icon clickable fa fa-ellipsis-h right" id="menuToggle" aria-hidden="true"></i>
+                            <span class="badge badge-danger notification-count"></span>
+                        </div>
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <div class="dropdown-item" data-toggle="modal" data-target="#add-friends-modal">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                新增好友
+                            </div>
+                            <div class="dropdown-item" id="friends-requests" data-toggle="modal"
+                                data-target="#friends-requests-modal" style="position: relative;">
+                                <i class="fa fa-address-book" aria-hidden="true"></i>
+                                <span class="badge badge-danger" id="friend-request-count"></span>
+                                好友請求
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list">
+                    <div class="friends-list">
+                        <div class="list-header">
+                            <h5>好友</h5>
+                        </div>
+                    </div>
+                    <div class="groups-list">
+                        <div class="list-header">
+                            <h5>群組</h5>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </section>
+
+            <!-- 新增好友modal -->
+            <div class="modal fade" id="add-friends-modal" tabindex="-1" role="dialog"
+                aria-labelledby="addFriendsModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addFriendsModalLabel">新增好友</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="關閉">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="add-friends-form">
+                                <div class="form-group">
+                                    <label for="friendsId">好友ID</label>
+                                    <input type="text" class="form-control no-space" id="friendsId" required>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary" form="add-friends-form">確認</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 好友請求modal -->
+            <div class="modal fade" id="friends-requests-modal" tabindex="-1" role="dialog"
+                aria-labelledby="FriendsRequestsModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="FriendsRequestsModalLabel">好友請求</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="關閉">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="friend-request-list">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script>
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/friends.js"></script>
+
+
+</body>
+
+</html>
