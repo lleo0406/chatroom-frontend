@@ -53,7 +53,7 @@ $('#resetPasswordForm').on('submit', function (e) {
                         timer: 3000
                     })
                     setTimeout(function () {
-                        window.location.href = '/login.html'; 
+                        window.location.href = '/index.html'; 
                     }, 3000);
                 }else if(code == 400){
                     Swal.fire({
@@ -74,7 +74,7 @@ $('#resetPasswordForm').on('submit', function (e) {
                         timer: 3000
                     })
                     setTimeout(function () {
-                        window.location.href = '/login.html'; 
+                        window.location.href = '/index.html'; 
                     }, 3000);
                 }
             }

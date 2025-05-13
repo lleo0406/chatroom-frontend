@@ -55,7 +55,7 @@ $('.signout').on('click', function () {
                     success: function (response) {
                         if (response.code == 200 ) {
                             localStorage.removeItem('userInfo');
-                            window.location.href = '/login.html';
+                            window.location.href = '/index.html';
                         }
                     },
                 });
@@ -73,12 +73,12 @@ function validateToken() {
         success: function (response) {
             if (!response.isValid) {
                 localStorage.removeItem('userInfo');
-                window.location.href = '/login.html';
+                window.location.href = '/index.html';
             }
         },
         error: function () {
             localStorage.removeItem('userInfo');
-            window.location.href = '/login.html';
+            window.location.href = '/index.html';
         }
     });
 }
