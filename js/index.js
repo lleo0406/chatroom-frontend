@@ -51,20 +51,23 @@ $("#signup-form").on("submit", function (event) {
         contentType: "application/json",
         data: JSON.stringify(data),
         success: function (response) {
-            console.log(response.code);
-            if (response.code = 200) {
+            if (response.code == 200) {
                 Swal.fire({
-                    title: '註冊成功',
+                    toast: true,
+                    position: 'top-end',
                     icon: 'success',
-                    showCancelButton: false,
-                    confirmButtonText: '確認',
+                    title: "註冊成功",
+                    showConfirmButton: false,
+                    timer: 3000
                 })
-            } else if (response.code = 404) {
+            } else if (response.code == 409) {
                 Swal.fire({
-                    title: 'Email帳號已存在，請重新輸入',
+                    toast: true,
+                    position: 'top-end',
                     icon: 'error',
-                    showCancelButton: false,
-                    confirmButtonText: '確認',
+                    title: "Email已被註冊",
+                    showConfirmButton: false,
+                    timer: 3000
                 })
             }
         },
@@ -88,7 +91,7 @@ $("#login-form").on("submit", function (event) {
         type: "POST",
         contentType: "application/json",
         xhrFields: {
-            withCredentials: true 
+            withCredentials: true
         },
         data: JSON.stringify(formData),
         success: function (response) {

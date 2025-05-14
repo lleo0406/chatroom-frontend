@@ -74,7 +74,7 @@ $('#resetPasswordForm').on('submit', function (e) {
                         timer: 3000
                     })
                     setTimeout(function () {
-                        window.location.href = '/index.html'; 
+                        window.location.href = '/login.html'; 
                     }, 3000);
                 }
             }

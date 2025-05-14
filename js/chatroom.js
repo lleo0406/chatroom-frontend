@@ -5,6 +5,8 @@ $(document).ready(function () {
 
     const $toggle = $('#menuToggle');
     const $menu = $('#dropdownMenu');
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const userId = userInfo?.id;
 
     $toggle.on('click', function (e) {
         e.stopPropagation();
@@ -23,6 +25,10 @@ $(document).ready(function () {
 
     connection.start().then(() => {
         console.log("SignalR Connected");
+
+        connection.invoke("JoinRoom", userId)
+            .catch(err => console.error(`加入聊天室失敗：${userId}`, err.toString()));
+
         ChatList();
 
     }).catch(err => console.error(err.toString()));
@@ -33,6 +39,10 @@ $(document).ready(function () {
         }
 
         updateChatPreview(message);
+    });
+    connection.on("createChat", function (message) {
+        ChatList()
+        // isNewChat(message);
     });
 
 })
@@ -91,12 +101,21 @@ $('.create-group button').on('click', function () {
         success: function (response) {
             const friends = response.data.friendList;
             const container = $('.friend-list');
+            let picture = null;
+
+
             container.empty();
             container.append('<span class="font-weight-bold">選擇好友</span>');
             friends.forEach(friend => {
+                if (friend.requesterPicture == null) {
+                    picture = `./image/user-default.webp`
+                } else {
+                    picture = `https://localhost:7080${friend.requesterPicture}`
+                }
+
                 const friendHtml = `
                     <div class="friend-item d-flex align-items-center mb-2 p-2 border rounded" data-id="${friend.requesterId}" style="cursor: pointer;">
-                        <img src="https://localhost:7080${friend.requesterPicture}" class="rounded-circle mr-2" width="40" height="40" alt="${friend.requesterDisplayName}">
+                        <img src="${picture}" class="rounded-circle mr-2" width="40" height="40" alt="${friend.requesterDisplayName}">
                         <span class="friend-name">${friend.requesterDisplayName}</span>
                         <input type="checkbox" class="friend-checkbox ml-auto" style="cursor: pointer;">
                     </div>
@@ -170,7 +189,6 @@ $('#create-group-form').on('submit', function (e) {
 });
 
 
-
 function ChatList() {
     $.ajax({
         url: 'https://localhost:7080/chatroom/Chat/getChatList',
@@ -184,11 +202,18 @@ function ChatList() {
 
                 const discussionsSection = $('.discussions');
                 const targetId = localStorage.getItem("targetChatRoomId");
+                $('.message-active').remove();
+                let picture = null;
 
                 $.each(response.data, function (index, chat) {
+                    if (chat.picture == null || chat.picture == "") {
+                        picture = `./image/user-default.webp`
+                    } else {
+                        picture = `https://localhost:7080${chat.picture}`
+                    }
                     const discussionDiv = `
                         <div class="discussion message-active" data-id="${chat.chatRoomId}">
-                            <div class="photo" style="background-image: url('https://localhost:7080${chat.picture}');">
+                            <div class="photo" style="background-image: url('${picture}');">
                             </div>
                             <div class="desc-contact">
                                 <p class="name">${chat.name ?? '未知名稱'}</p>
@@ -199,9 +224,9 @@ function ChatList() {
                     discussionsSection.append(discussionDiv);
                 });
 
-                $('.discussion').off('click').on('click', function () {
+                $('.message-active').off('click').on('click', function () {
                     const chatRoomId = $(this).data('id');
-                    getChatMessages(chatRoomId, $(this)); // 把目前點擊的 element 傳進去
+                    getChatMessages(chatRoomId, $(this));
                 });
 
 
@@ -260,6 +285,13 @@ async function getChatMessages(chatRoomId, clickedElement) {
                         .format("YYYY/MM/DD HH:mm:ss");
                     let messageHtml = '';
 
+                    let picture = null;
+                    if (message.senderPicture == null) {
+                        picture = `./image/user-default.webp`
+                    } else {
+                        picture = `https://localhost:7080${message.senderPicture}`
+                    }
+
                     // 判斷是自己的留言還是別人的
                     if (message.senderId == message.userId) {
                         messageHtml += `
@@ -273,7 +305,7 @@ async function getChatMessages(chatRoomId, clickedElement) {
                     } else {
                         messageHtml += `
                             <div class="message left">
-                                <img src="https://localhost:7080${message.senderPicture}" class="avatar" />
+                                <img src="${picture}" class="avatar" />
                                 <div>
                                     <div class="name">${message.senderName}</div>
                                     <div class="bubble-container">
@@ -331,7 +363,7 @@ async function getChatMessages(chatRoomId, clickedElement) {
 async function sendMessage() {
     const message = $('.write-message').val().trim();
     if (message !== "" && currentChatRoomId !== null) {
-        
+
         try {
             await connection.invoke("SendMessage", {
                 chatRoomId: currentChatRoomId,
@@ -356,7 +388,12 @@ function renderMessage(message) {
         .format("YYYY/MM/DD HH:mm:ss");
     const messageTime = new Date(formatted);
     const messageMinuteKey = `${messageTime.getFullYear()}-${messageTime.getMonth()}-${messageTime.getDate()} ${messageTime.getHours()}:${messageTime.getMinutes()}`;
-
+    let picture = null;
+    if (message.senderPicture == null) {
+        picture = `./image/user-default.webp`
+    } else {
+        picture = `https://localhost:7080${message.senderPicture}`
+    }
     let messageHtml = '';
 
     // 判斷是自己的留言還是別人的
@@ -372,7 +409,7 @@ function renderMessage(message) {
     } else {
         messageHtml += `
             <div class="message left">
-                <img src="https://localhost:7080${message.senderPicture}" class="avatar" />
+                <img src="${picture}" class="avatar" />
                 <div>
                     <div class="name">${message.senderName}</div>
                     <div class="bubble-container">
@@ -388,10 +425,42 @@ function renderMessage(message) {
     $("#chatContainer").scrollTop($("#chatContainer")[0].scrollHeight);
 }
 
+function isNewChat(message) {
+    const allChatRoomIds = $('.discussion').map(function () {
+        return $(this).data('id');
+    }).get();
+
+    let exist = allChatRoomIds.includes(message.chatRoomId);
+    let picture = null;
+    if (message.senderPicture == null) {
+        picture = `./image/user-default.webp`
+    } else {
+        picture = `https://localhost:7080${message.senderPicture}`
+    }
+
+    if (!exist) {
+        const discussionsSection = $('.discussions');
+        const discussionDiv = `
+                <div class="discussion message-active" data-id="${message.chatRoomId}">
+                    <div class="photo" style="background-image: url('${picture}');">
+                    </div>
+                    <div class="desc-contact">
+                        <p class="name">${message.senderName ?? '未知名稱'}</p>
+                        <p class="message">${message.message ?? ''}</p>
+                    </div>
+                </div>
+            `;
+        discussionsSection.append(discussionDiv);
+
+        updateChatPreview(message);
+    }
+}
+
 function updateChatPreview(message) {
     const chatRoomId = message.chatRoomId;
     const discussionSelector = `.discussion[data-id="${chatRoomId}"]`;
     const $discussion = $(discussionSelector);
+
 
     if ($discussion.length > 0) {
         $discussion.find(".message").text(message.message);
@@ -448,7 +517,7 @@ function exitGroup() {
                 success: function (response) {
                     if (response.code == 200) {
                         window.location.reload();
-                    }else{
+                    } else {
                         Swal.fire({
                             toast: true,
                             position: 'top-end',

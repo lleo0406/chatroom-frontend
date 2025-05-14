@@ -205,7 +205,13 @@ function getfriendsRequests() {
                     response.data.forEach(friend => {
                         const displayName = friend.requesterDisplayName || '未知使用者';
                         const requesterId = friend.requesterId;
-                        const picture = `https://localhost:7080/${friend.requesterPicture}`
+                        let picture = null;
+                        console.log(friend.requesterPicture);
+                        if(friend.requesterPicture == null){
+                            picture = `./image/user-default.webp`
+                        }else{
+                            picture = `https://localhost:7080/${friend.requesterPicture}`
+                        }
 
                         const itemHtml = `
                             <div class="d-flex align-items-center mb-3 justify-content-between">
@@ -248,11 +254,19 @@ function getFriendsList(){
                 let groups = response.data.groupList;
                 let list = $('.friends-list');
                 let groupList = $('.groups-list');
-
+                
+                
+                
                 friends.forEach(friend => {
                     const displayName = friend.requesterDisplayName || '未知使用者';
                     const requesterId = friend.requesterId;
-                    const picture = `https://localhost:7080/${friend.requesterPicture}`;
+                    let picture = null;
+
+                    if(friend.requesterPicture == null){
+                        picture = `./image/user-default.webp`
+                    }else{
+                        picture = `https://localhost:7080/${friend.requesterPicture}`
+                    }
 
                     const itemHtml = `
                         <div class="d-flex align-items-center justify-content-between friend-card">
