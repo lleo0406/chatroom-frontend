@@ -1,5 +1,6 @@
 const loginBtn = document.getElementById("login");
 const signupBtn = document.getElementById("signup");
+const apiBaseUrl = 'https://chatroom-backend-jjoi.onrender.com';
 
 $('.no-space').on('keydown', function (e) {
     if (e.key === ' ' || e.keyCode === 32) {
