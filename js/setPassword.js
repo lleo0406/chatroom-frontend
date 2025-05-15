@@ -9,8 +9,6 @@ $('.no-space').on('keydown', function (e) {
     }
 });
 
-
-
 $('#resetPasswordForm').on('submit', function (e) {
     e.preventDefault();
 
@@ -65,7 +63,6 @@ $('#resetPasswordForm').on('submit', function (e) {
         })
     }
 });
-
 
 function validateToken() {
     $.ajax({
