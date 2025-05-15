@@ -66,6 +66,7 @@ $('#resetPasswordForm').on('submit', function (e) {
     }
 });
 
+
 function validateToken() {
     $.ajax({
         url: `${apiBaseUrl}/chatroom/User/getProfile`,
