@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $.ajax({
-        url: 'https://localhost:7080/chatroom/User/getUserInfo',
+        url: `${apiBaseUrl}/chatroom/User/getUserInfo`,
         type: 'GET',
         xhrFields: {
             withCredentials: true
@@ -12,7 +12,7 @@ $(document).ready(function () {
                 $('#userEmail').text(response.data.email || '未設定Email');
                 $('#userDisplayId').text(response.data.displayId || '未設定ID');
                 if (response.data.picture != null) {
-                    $('#userAvatar').attr('src', "https://localhost:7080" + response.data.picture);
+                    $('#userAvatar').attr('src', `${apiBaseUrl}/` + response.data.picture);
                 }
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
             }
@@ -81,7 +81,7 @@ $('#avatarInput').on('change', function () {
             formData.append('avatar', file);
 
             $.ajax({
-                url: 'https://localhost:7080/chatroom/User/uploadAvatar',
+                url: `${apiBaseUrl}/chatroom/User/uploadAvatar`,
                 type: 'POST',
                 xhrFields: {
                     withCredentials: true
@@ -91,7 +91,7 @@ $('#avatarInput').on('change', function () {
                 data: formData,
                 success: function (response) {
                     if (response.code == 200) {
-                        $('#userAvatar').attr('src', "https://localhost:7080/" + response.data);
+                        $('#userAvatar').attr('src', `${apiBaseUrl}/` + response.data);
                     }
                     Swal.fire({
                         toast: true,
@@ -154,7 +154,7 @@ $('#edit-name-form').on('submit', function (e) {
         return;
     }
 
-    updateUserInfoField('displayName', newName, 'https://localhost:7080/chatroom/User/updateName');
+    updateUserInfoField('displayName', newName, `${apiBaseUrl}/chatroom/User/updateName`);
 });
 
 $('#edit-id-form').on('submit', function (e) {
@@ -186,7 +186,7 @@ $('#edit-id-form').on('submit', function (e) {
         return;
     }
 
-    updateUserInfoField('displayId', newDisplayId, 'https://localhost:7080/chatroom/User/updateDisplayId');
+    updateUserInfoField('displayId', newDisplayId, `${apiBaseUrl}/chatroom/User/updateDisplayId`);
 });
 
 $('#edit-email-form').on('submit', function (e) {
@@ -212,7 +212,7 @@ $('#edit-email-form').on('submit', function (e) {
         return;
     }
     $.ajax({
-        url: "https://localhost:7080/chatroom/User/updateEmail",
+        url: `${apiBaseUrl}/chatroom/User/updateEmail`,
         method: 'POST',
         contentType: 'application/json',
         xhrFields: {
@@ -289,16 +289,13 @@ $('#edit-password-form').on('submit', function (e) {
     }
 
     $.ajax({
-        url: 'https://localhost:7080/chatroom/User/updatePassword',
+        url: `${apiBaseUrl}/chatroom/User/updatePassword`,
         type: 'POST',
         contentType: 'application/json',
         xhrFields: {
             withCredentials: true
         },
         data: JSON.stringify(data),
-        headers: {
-            'Authorization': 'Bearer ' + token
-        },
         success: function (response) {
             if (response.code == 404) {
                 Swal.fire({

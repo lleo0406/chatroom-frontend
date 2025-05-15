@@ -1,13 +1,13 @@
-const token = localStorage.getItem('token');
 const userInfo = localStorage.getItem('userInfo');
 const userProfile = JSON.parse(userInfo);
+const apiBaseUrl = 'https://chatroom-backend-jjoi.onrender.com';
 
 $(document).ready(function () {
     validateToken();
     getfriendsRequestsCount();
 
     var connection = new signalR.HubConnectionBuilder()
-        .withUrl("https://localhost:7080/FriendNotificationHub",{
+        .withUrl(`${apiBaseUrl}/FriendNotificationHub`,{
             withCredentials: true
         })
         .withAutomaticReconnect()
@@ -47,7 +47,7 @@ $('.signout').on('click', function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: 'https://localhost:7080/chatroom/User/logout',
+                    url: `${apiBaseUrl}/chatroom/User/logout`,
                     method: 'POST',
                     xhrFields: {
                         withCredentials: true
@@ -65,7 +65,7 @@ $('.signout').on('click', function () {
 
 function validateToken() {
     $.ajax({
-        url: 'https://localhost:7080/chatroom/User/getProfile',
+        url: `${apiBaseUrl}/chatroom/User/getProfile`,
         method: 'POST',
         xhrFields: {
             withCredentials: true
@@ -158,7 +158,7 @@ function updateUserInfoField(fieldName, newValue, endpointUrl) {
 
 function getfriendsRequestsCount() {
     $.ajax({
-        url: 'https://localhost:7080/chatroom/Friends/getFriendsRequests',
+        url: `${apiBaseUrl}/chatroom/Friends/getFriendsRequests`,
         type: 'GET',
         contentType: 'application/json',
         xhrFields: {

@@ -37,7 +37,7 @@ $('#resetPasswordForm').on('submit', function (e) {
         data['newPassword'] = newPassword;
 
         $.ajax({
-            url: 'https://localhost:7080/chatroom/User/resetPassword',
+            url: `${apiBaseUrl}/chatroom/User/resetPassword`,
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
@@ -90,7 +90,7 @@ function VerifyForgotPasswordToken(token){
     }
 
     $.ajax({
-        url: 'https://localhost:7080/chatroom/User/verifyForgotPasswordToken',
+        url: `${apiBaseUrl}/chatroom/User/verifyForgotPasswordToken`,
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ Token: token }),

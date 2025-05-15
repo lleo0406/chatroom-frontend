@@ -1,4 +1,3 @@
-let token=null;
 $(document).ready(function () {
     validateToken();
 
@@ -30,7 +29,7 @@ $('#resetPasswordForm').on('submit', function (e) {
     }else{
 
         $.ajax({
-            url: 'https://localhost:7080/chatroom/User/setPassword',
+            url: `${apiBaseUrl}/chatroom/User/setPassword`,
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({Password : Password}),
@@ -69,7 +68,7 @@ $('#resetPasswordForm').on('submit', function (e) {
 
 function validateToken() {
     $.ajax({
-        url: 'https://localhost:7080/chatroom/User/getProfile',
+        url: `${apiBaseUrl}/chatroom/User/getProfile`,
         method: 'POST',
         xhrFields: {
             withCredentials: true

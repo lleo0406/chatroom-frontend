@@ -33,7 +33,7 @@ signupBtn.addEventListener("click", (e) => {
 
 
 $('.social-login').on('click', function () {
-    window.location.href = "https://localhost:7080/chatroom/auth/google-login-url";
+    window.location.href = `${apiBaseUrl}/chatroom/auth/google-login-url`;
 });
 
 $("#signup-form").on("submit", function (event) {
@@ -46,7 +46,7 @@ $("#signup-form").on("submit", function (event) {
     });
 
     $.ajax({
-        url: "https://localhost:7080/chatroom/User/registerAccount",
+        url: `${apiBaseUrl}/chatroom/User/registerAccount`,
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify(data),
@@ -87,7 +87,7 @@ $("#login-form").on("submit", function (event) {
     };
 
     $.ajax({
-        url: "https://localhost:7080/chatroom/User/login",
+        url: `${apiBaseUrl}/chatroom/User/login`,
         type: "POST",
         contentType: "application/json",
         xhrFields: {
@@ -121,7 +121,7 @@ $('#forgot-password-form').on('submit', function (event) {
     const email = $('#forgot-email').val().trim();
 
     $.ajax({
-        url: 'https://localhost:7080/chatroom/User/forgotPassword',
+        url: `${apiBaseUrl}/chatroom/User/forgotPassword`,
         type: 'Post',
         contentType: 'application/json',
         data: JSON.stringify({ Email: email }),

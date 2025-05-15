@@ -39,7 +39,7 @@ $('#friend-request-list').on('click', '.accept-request', function () {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: 'https://localhost:7080/chatroom/Friends/acceptFriend',
+                url: `${apiBaseUrl}/chatroom/Friends/acceptFriend`,
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({ Id: requesterId }),
@@ -83,7 +83,7 @@ $('#friend-request-list').on('click', '.reject-request', function () {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: 'https://localhost:7080/chatroom/Friends/rejectFriend',
+                url: `${apiBaseUrl}/chatroom/Friends/rejectFriend`,
                 type: 'POST',
                 contentType: 'application/json',
                 xhrFields: {
@@ -114,7 +114,7 @@ $('#add-friends-form').on('submit', function (e) {
     const displayId = $('#friendsId').val();
 
     $.ajax({
-        url: 'https://localhost:7080/chatroom/Friends/addFriend',
+        url: `${apiBaseUrl}/chatroom/Friends/addFriend`,
         type: 'POST',
         contentType: 'application/json',
         xhrFields: {
@@ -187,7 +187,7 @@ $('#add-friends-form').on('submit', function (e) {
 
 function getfriendsRequests() {
     $.ajax({
-        url: 'https://localhost:7080/chatroom/Friends/getFriendsRequests',
+        url: `${apiBaseUrl}/chatroom/Friends/getFriendsRequests`,
         type: 'GET',
         contentType: 'application/json',
         xhrFields: {
@@ -210,7 +210,7 @@ function getfriendsRequests() {
                         if(friend.requesterPicture == null){
                             picture = `./image/user-default.webp`
                         }else{
-                            picture = `https://localhost:7080/${friend.requesterPicture}`
+                            picture = `${apiBaseUrl}/${friend.requesterPicture}`
                         }
 
                         const itemHtml = `
@@ -242,7 +242,7 @@ function getfriendsRequests() {
 
 function getFriendsList(){
     $.ajax({
-        url: 'https://localhost:7080/chatroom/Friends/getFriendsList',
+        url: `${apiBaseUrl}/chatroom/Friends/getFriendsList`,
         type: 'GET',
         contentType: 'application/json',
         xhrFields: {
@@ -265,7 +265,7 @@ function getFriendsList(){
                     if(friend.requesterPicture == null){
                         picture = `./image/user-default.webp`
                     }else{
-                        picture = `https://localhost:7080/${friend.requesterPicture}`
+                        picture = `${apiBaseUrl}/${friend.requesterPicture}`
                     }
 
                     const itemHtml = `
@@ -287,7 +287,7 @@ function getFriendsList(){
                 groups.forEach(group => {
                     const displayName = group.name || '未知使用者';
                     const chatRoomId = group.chatRoomId;
-                    const picture = `https://localhost:7080/${group.picture}`;
+                    const picture = `${apiBaseUrl}/${group.picture}`;
 
                     const itemHtml = `
                         <div class="d-flex align-items-center justify-content-between friend-card">
@@ -313,7 +313,7 @@ function getFriendsList(){
 
 function startChat(requesterId) {
     $.ajax({
-        url: 'https://localhost:7080/chatroom/chat/startChat',
+        url: `${apiBaseUrl}/chatroom/chat/startChat`,
         type: 'POST',
         contentType: 'application/json',
         xhrFields: {
@@ -347,7 +347,7 @@ Swal.fire({
     }).then((result) => {
         if(result.isConfirmed){
             $.ajax({
-                url: 'https://localhost:7080/chatroom/Chat/exitGroup',
+                url: `${apiBaseUrl}/chatroom/Chat/exitGroup`,
                 type: 'POST',
                 contentType: 'application/json',
                 xhrFields: {
@@ -387,7 +387,7 @@ function deleteFriend(requesterId) {
     }).then((result) => {
         if(result.isConfirmed){
             $.ajax({
-                url: 'https://localhost:7080/chatroom/Friends/deleteFriend',
+                url: `${apiBaseUrl}/chatroom/Friends/deleteFriend`,
                 type: 'POST',
                 contentType: 'application/json',
                 xhrFields: {

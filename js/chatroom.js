@@ -18,7 +18,7 @@ $(document).ready(function () {
     });
 
     connection = new signalR.HubConnectionBuilder()
-        .withUrl("https://localhost:7080/chathub", {
+        .withUrl(`${apiBaseUrl}/chathub`, {
         })
         .withAutomaticReconnect()
         .build();
@@ -92,7 +92,7 @@ $('.friend-list').on('click', '.friend-item', function (e) {
 
 $('.create-group button').on('click', function () {
     $.ajax({
-        url: 'https://localhost:7080/chatroom/Friends/getFriendsList',
+        url: `${apiBaseUrl}/chatroom/Friends/getFriendsList`,
         type: 'GET',
         contentType: 'application/json',
         xhrFields: {
@@ -110,7 +110,7 @@ $('.create-group button').on('click', function () {
                 if (friend.requesterPicture == null) {
                     picture = `./image/user-default.webp`
                 } else {
-                    picture = `https://localhost:7080${friend.requesterPicture}`
+                    picture = `${apiBaseUrl}/${friend.requesterPicture}`
                 }
 
                 const friendHtml = `
@@ -171,7 +171,7 @@ $('#create-group-form').on('submit', function (e) {
     formData.append('selectedFriends', JSON.stringify(selectedFriends));
 
     $.ajax({
-        url: 'https://localhost:7080/chatroom/Chat/createGroup',
+        url: `${apiBaseUrl}/chatroom/Chat/createGroup`,
         type: 'POST',
         data: formData,
         xhrFields: {
@@ -191,7 +191,7 @@ $('#create-group-form').on('submit', function (e) {
 
 function ChatList() {
     $.ajax({
-        url: 'https://localhost:7080/chatroom/Chat/getChatList',
+        url: `${apiBaseUrl}/chatroom/Chat/getChatList`,
         type: 'GET',
         xhrFields: {
             withCredentials: true
@@ -209,7 +209,7 @@ function ChatList() {
                     if (chat.picture == null || chat.picture == "") {
                         picture = `./image/user-default.webp`
                     } else {
-                        picture = `https://localhost:7080${chat.picture}`
+                        picture = `${apiBaseUrl}/${chat.picture}`
                     }
                     const discussionDiv = `
                         <div class="discussion message-active" data-id="${chat.chatRoomId}">
@@ -253,7 +253,7 @@ async function getChatMessages(chatRoomId, clickedElement) {
     currentChatRoomId = chatRoomId;
 
     $.ajax({
-        url: 'https://localhost:7080/chatroom/Chat/getChatMessages',
+        url: `${apiBaseUrl}/chatroom/Chat/getChatMessages`,
         type: 'POST',
         contentType: 'application/json',
         xhrFields: {
@@ -289,7 +289,7 @@ async function getChatMessages(chatRoomId, clickedElement) {
                     if (message.senderPicture == null) {
                         picture = `./image/user-default.webp`
                     } else {
-                        picture = `https://localhost:7080${message.senderPicture}`
+                        picture = `${apiBaseUrl}/${message.senderPicture}`
                     }
 
                     // 判斷是自己的留言還是別人的
@@ -392,7 +392,7 @@ function renderMessage(message) {
     if (message.senderPicture == null) {
         picture = `./image/user-default.webp`
     } else {
-        picture = `https://localhost:7080${message.senderPicture}`
+        picture = `${apiBaseUrl}/${message.senderPicture}`
     }
     let messageHtml = '';
 
@@ -435,7 +435,7 @@ function isNewChat(message) {
     if (message.senderPicture == null) {
         picture = `./image/user-default.webp`
     } else {
-        picture = `https://localhost:7080${message.senderPicture}`
+        picture = `${apiBaseUrl}/${message.senderPicture}`
     }
 
     if (!exist) {
@@ -507,7 +507,7 @@ function exitGroup() {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: 'https://localhost:7080/chatroom/Chat/exitGroup',
+                url: `${apiBaseUrl}/chatroom/Chat/exitGroup`,
                 type: 'POST',
                 contentType: 'application/json',
                 xhrFields: {
