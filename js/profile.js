@@ -91,7 +91,7 @@ $('#avatarInput').on('change', function () {
                 data: formData,
                 success: function (response) {
                     if (response.code == 200) {
-                        $('#userAvatar').attr('src', `${apiBaseUrl}` + response.data);
+                        $('#userAvatar').attr('src', response.data);
                     }
                     Swal.fire({
                         toast: true,
