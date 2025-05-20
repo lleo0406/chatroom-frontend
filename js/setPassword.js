@@ -1,5 +1,6 @@
+const apiBaseUrl = 'https://chatroom-backend-jjoi.onrender.com';
 $(document).ready(function () {
-    validateToken();
+    alreadySetPs();
 
 });
 
@@ -64,15 +65,15 @@ $('#resetPasswordForm').on('submit', function (e) {
     }
 });
 
-function validateToken() {
+function alreadySetPs() {
     $.ajax({
-        url: `${apiBaseUrl}/chatroom/User/getProfile`,
-        method: 'POST',
+        url: `${apiBaseUrl}/chatroom/User/alreadySetPs`,
+        method: 'GET',
         xhrFields: {
             withCredentials: true
         },
         success: function (response) {
-            if (!response.isValid) {
+            if (response.code == 200) {
                 window.location.href = '/index.html';
             }
             $('.form-structor').css('display', 'flex');
