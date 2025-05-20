@@ -1,6 +1,7 @@
 const userInfo = localStorage.getItem('userInfo');
 const userProfile = JSON.parse(userInfo);
-const apiBaseUrl = 'https://chatroom-backend-jjoi.onrender.com';
+// const apiBaseUrl = 'https://chatroom-backend-jjoi.onrender.com';
+const apiBaseUrl = 'https://localHost:7080';
 
 $(document).ready(function () {
     validateToken();

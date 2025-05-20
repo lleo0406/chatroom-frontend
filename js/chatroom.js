@@ -110,7 +110,7 @@ $('.create-group button').on('click', function () {
                 if (friend.requesterPicture == null) {
                     picture = `./image/user-default.webp`
                 } else {
-                    picture = `${apiBaseUrl}/${friend.requesterPicture}`
+                    picture = `${apiBaseUrl}${friend.requesterPicture}`
                 }
 
                 const friendHtml = `
@@ -209,7 +209,7 @@ function ChatList() {
                     if (chat.picture == null || chat.picture == "") {
                         picture = `./image/user-default.webp`
                     } else {
-                        picture = `${apiBaseUrl}/${chat.picture}`
+                        picture = `${apiBaseUrl}${chat.picture}`
                     }
                     const discussionDiv = `
                         <div class="discussion message-active" data-id="${chat.chatRoomId}">
@@ -289,7 +289,7 @@ async function getChatMessages(chatRoomId, clickedElement) {
                     if (message.senderPicture == null) {
                         picture = `./image/user-default.webp`
                     } else {
-                        picture = `${apiBaseUrl}/${message.senderPicture}`
+                        picture = `${apiBaseUrl}${message.senderPicture}`
                     }
 
                     // 判斷是自己的留言還是別人的
@@ -392,7 +392,7 @@ function renderMessage(message) {
     if (message.senderPicture == null) {
         picture = `./image/user-default.webp`
     } else {
-        picture = `${apiBaseUrl}/${message.senderPicture}`
+        picture = `${apiBaseUrl}${message.senderPicture}`
     }
     let messageHtml = '';
 
@@ -435,7 +435,7 @@ function isNewChat(message) {
     if (message.senderPicture == null) {
         picture = `./image/user-default.webp`
     } else {
-        picture = `${apiBaseUrl}/${message.senderPicture}`
+        picture = `${apiBaseUrl}${message.senderPicture}`
     }
 
     if (!exist) {

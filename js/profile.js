@@ -12,7 +12,7 @@ $(document).ready(function () {
                 $('#userEmail').text(response.data.email || '未設定Email');
                 $('#userDisplayId').text(response.data.displayId || '未設定ID');
                 if (response.data.picture != null) {
-                    $('#userAvatar').attr('src', `${apiBaseUrl}/` + response.data.picture);
+                    $('#userAvatar').attr('src', `${apiBaseUrl}` + response.data.picture);
                 }
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
             }
@@ -91,7 +91,7 @@ $('#avatarInput').on('change', function () {
                 data: formData,
                 success: function (response) {
                     if (response.code == 200) {
-                        $('#userAvatar').attr('src', `${apiBaseUrl}/` + response.data);
+                        $('#userAvatar').attr('src', `${apiBaseUrl}` + response.data);
                     }
                     Swal.fire({
                         toast: true,
