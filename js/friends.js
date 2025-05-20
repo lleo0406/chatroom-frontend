@@ -210,7 +210,7 @@ function getfriendsRequests() {
                         if(friend.requesterPicture == null){
                             picture = `./image/user-default.webp`
                         }else{
-                            picture = `${apiBaseUrl}${friend.requesterPicture}`
+                            picture = friend.requesterPicture
                         }
 
                         const itemHtml = `
@@ -265,7 +265,7 @@ function getFriendsList(){
                     if(friend.requesterPicture == null){
                         picture = `./image/user-default.webp`
                     }else{
-                        picture = `${apiBaseUrl}${friend.requesterPicture}`
+                        picture = friend.requesterPicture
                     }
 
                     const itemHtml = `
