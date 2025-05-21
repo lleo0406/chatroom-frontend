@@ -287,7 +287,7 @@ function getFriendsList(){
                 groups.forEach(group => {
                     const displayName = group.name || '未知使用者';
                     const chatRoomId = group.chatRoomId;
-                    const picture = `${apiBaseUrl}${group.picture}`;
+                    const picture = group.picture;
 
                     const itemHtml = `
                         <div class="d-flex align-items-center justify-content-between friend-card">

@@ -40,9 +40,9 @@ $(document).ready(function () {
 
         updateChatPreview(message);
     });
+    
     connection.on("createChat", function (message) {
         ChatList()
-        // isNewChat(message);
     });
 
 })
@@ -52,10 +52,7 @@ $('#footer-chat').on('click', '.send', function () {
 })
 
 $('#dropdownMenu').on('click', '.dropdown-item', function () {
-    console.log("test");
-
     const action = $(this).data('action');
-    console.log(action);
 
     switch (action) {
         case 'friend':
