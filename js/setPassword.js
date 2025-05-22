@@ -1,4 +1,3 @@
-const apiBaseUrl = 'https://chatroom-backend-jjoi.onrender.com';
 $(document).ready(function () {
     alreadySetPs();
 

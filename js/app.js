@@ -1,6 +1,6 @@
 const userInfo = localStorage.getItem('userInfo');
 const userProfile = JSON.parse(userInfo);
-const apiBaseUrl = 'https://chatroom-backend-jjoi.onrender.com';
+
 
 
 $(document).ready(function () {
@@ -74,12 +74,12 @@ function validateToken() {
         success: function (response) {
             if (!response.isValid) {
                 localStorage.removeItem('userInfo');
-                window.location.href = '/index.html';
+                // window.location.href = '/index.html';
             }
         },
         error: function () {
             localStorage.removeItem('userInfo');
-            window.location.href = '/index.html';
+            // window.location.href = '/index.html';
         }
     });
 }
